@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:20:08 by ting              #+#    #+#             */
-/*   Updated: 2023/10/08 23:27:43 by ting             ###   ########.fr       */
+/*   Updated: 2023/10/10 17:49:42 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@
 # include <unistd.h>
 
 char	*get_next_line(int fd);
+char	*ft_strdup(const char *src);
 
 #endif
