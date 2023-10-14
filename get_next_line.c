@@ -6,11 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/09 13:28:24 by ting             ###   ########.fr       */
-=======
-/*   Updated: 2023/10/10 18:19:49 by ting             ###   ########.fr       */
->>>>>>> 4c31cb58ffc585373fa755cfb6763f36a757ecf0
+/*   Updated: 2023/10/13 15:44:22 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +14,12 @@
 
 char	*get_next_line(int fd)
 {
-	static int	j;
+	static int	j = 0;
 	int	i;
 	int	checker;
 	char	*buffer;
 	char	line[700000];
 
-	j = 0;
 	i = 0;
 	buffer = (char *)malloc(BUFFER_SIZE);
 	if (!buffer)
@@ -50,7 +45,7 @@ char	*get_next_line(int fd)
 	}
 	return (ft_strdup(line));
 }
-
+/*
 #include <stdio.h>
 #include <fcntl.h>
 int	main(void)
@@ -66,4 +61,4 @@ int	main(void)
 	close(fd);
 	return (0);
 }
-
+*/
