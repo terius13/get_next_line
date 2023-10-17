@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
-/*   Updated: 2023/10/15 01:29:36 by ting             ###   ########.fr       */
+/*   Updated: 2023/10/17 16:30:28 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,17 @@ char	*get_next_line(int fd)
 				line = ft_strcat(line, wholebuff, i);
 				break;
 			}
+			else if (wholebuff[i] != '\n')
+			{
+				checker = read(fd, buffer, BUFFER_SIZE);
+				wholebuff = ft_strcat(wholebuff, buffer, ft_strlen(buffer));
+			}
 			i++;
 		}
 		break;
-		//need to change my while condition so that it will keep looping to read when it does not hit \n within the BUFFER_SIZE
 	}
+	if (checker <= 0 && buffer == NULL)
+		return (NULL);
 	// need to manually add \n to line
 	return (line);
 }

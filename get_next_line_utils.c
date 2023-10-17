@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:19:28 by ting              #+#    #+#             */
-/*   Updated: 2023/10/14 22:30:50 by ting             ###   ########.fr       */
+/*   Updated: 2023/10/17 15:11:14 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	main(void)
 	char	s1[] = "helloworld";
 	char	s2[] = "byenow\nhihi";
 
-	printf("%d", isnewline(s2));
+//	printf("%d", isnewline(s2));
 //	printf("%s", ft_strcat(s1, s2));
 //	printf("%d", ft_strlen(s1));
 //	printf("%s", ft_strdup(s1));
