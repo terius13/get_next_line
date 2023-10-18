@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
-/*   Updated: 2023/10/17 16:30:28 by ting             ###   ########.fr       */
+/*   Updated: 2023/10/18 15:02:41 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,23 @@ char	*get_next_line(int fd)
 	while (checker > 0)
 	{
 		checker = read(fd, buffer, BUFFER_SIZE);
+		if (checker <= 0)
+			break;
 		buffer[checker] = '\0';
 		wholebuff = ft_strcat(wholebuff, buffer, ft_strlen(buffer));
 		//need to find a way to free strcat
-		while (wholebuff[i] != '\0')
+		while (1)
 		{
-			if (wholebuff[i] == '\n')
+			if (wholebuff[i] == '\n' || wholebuff[i] == '\0')
 			{
 				line = ft_strcat(line, wholebuff, i);
 				break;
 			}
-			else if (wholebuff[i] != '\n')
+			else if (wholebuff[i] != '\n' && isnewline(wholebuff) > BUFFER_SIZE)
 			{
 				checker = read(fd, buffer, BUFFER_SIZE);
 				wholebuff = ft_strcat(wholebuff, buffer, ft_strlen(buffer));
+				wholebuff[ft_strlen(wholebuff)] = '\0';
 			}
 			i++;
 		}
@@ -52,7 +55,6 @@ char	*get_next_line(int fd)
 	}
 	if (checker <= 0 && buffer == NULL)
 		return (NULL);
-	// need to manually add \n to line
 	return (line);
 }
 /*
@@ -99,13 +101,13 @@ int	main(void)
 //	char	*line;
 
 	int fd = open("test.txt", O_RDWR);
-	/*
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("%s\n", line);
-		free(line);
-	}
-	*/
+	
+//	while ((line = get_next_line(fd)) != NULL)
+//	{
+//		printf("%s\n", line);
+//		free(line);
+//	}
+
 	printf("%s\n", get_next_line(fd));
 	printf("%s\n", get_next_line(fd));
 	printf("%s\n", get_next_line(fd));
