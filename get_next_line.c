@@ -6,7 +6,11 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/10/19 20:00:53 by ting             ###   ########.fr       */
+=======
+/*   Updated: 2023/10/19 20:06:11 by ting             ###   ########.fr       */
+>>>>>>> b853c14a66739cb24d0b989399a3f8a6986b6824
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +27,8 @@ char	*get_next_line(int fd)
 	checker = 1;
 	line = "";
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
 	// malloc should change to calloc or bzero to not get garbage value
 	if (wholebuff[i] != '\0')
 	{
@@ -31,8 +37,6 @@ char	*get_next_line(int fd)
 	while (checker > 0)
 	{
 		checker = read(fd, buffer, BUFFER_SIZE);
-		if (checker <= 0)
-			break;
 		buffer[checker] = '\0';
 		wholebuff = ft_strcat(wholebuff, buffer, ft_strlen(buffer));
 		//need to find a way to free strcat
@@ -54,7 +58,17 @@ char	*get_next_line(int fd)
 		break;
 	}
 	if (checker <= 0 && buffer == NULL)
+	{
+		free(buffer);
+		free(wholebuff);
 		return (NULL);
+	}
+	if (wholebuff[i] =='\0')
+	{
+		free(wholebuff);
+		free(buffer);
+	}
+	// need to manually add \n to line
 	return (line);
 }
 /*
@@ -98,19 +112,20 @@ char	*get_next_line(int fd)
 #include <fcntl.h>
 int	main(void)
 {
-//	char	*line;
-
+	char	*line;
+	int	i = 0;
 	int fd = open("test.txt", O_RDWR);
 	
-//	while ((line = get_next_line(fd)) != NULL)
-//	{
-//		printf("%s\n", line);
-//		free(line);
-//	}
+	while ((line = get_next_line(fd)) != NULL && i < 3)
+	{
+		printf("%s\n", line);
+		free(line);
+		i++;
+	}
 
-	printf("%s\n", get_next_line(fd));
-	printf("%s\n", get_next_line(fd));
-	printf("%s\n", get_next_line(fd));
+//	printf("%s\n", get_next_line(fd));
+//	printf("%s\n", get_next_line(fd));
+//	printf("%s\n", get_next_line(fd));
 	close(fd);
 	return (0);
 }
