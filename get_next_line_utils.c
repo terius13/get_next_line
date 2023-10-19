@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:19:28 by ting              #+#    #+#             */
-/*   Updated: 2023/10/17 15:11:14 by ting             ###   ########.fr       */
+/*   Updated: 2023/10/19 20:33:18 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char	*ft_strcat(char *s1, char *s2, int size)
 		j++;
 	}
 	string[i] = '\0';
+	free(s2);
 	return (string);
 }
 
