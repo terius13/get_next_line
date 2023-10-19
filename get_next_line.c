@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
-/*   Updated: 2023/10/18 15:02:41 by ting             ###   ########.fr       */
+/*   Updated: 2023/10/19 20:00:53 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*get_next_line(int fd)
 	return (ft_strdup(line));
 }
 */
-
+/*
 #include <stdio.h>
 #include <fcntl.h>
 int	main(void)
@@ -114,4 +114,4 @@ int	main(void)
 	close(fd);
 	return (0);
 }
-
+*/
