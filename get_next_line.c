@@ -6,11 +6,17 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
-/*   Updated: 2023/10/19 22:04:58 by ting             ###   ########.fr       */
+/*   Updated: 2023/10/21 21:09:17 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+int	rmnextline(*str)
+{
+	
+}
+
 char	*get_next_line(int fd)
 {
 	char	*buffer;

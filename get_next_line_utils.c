@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:19:28 by ting              #+#    #+#             */
-/*   Updated: 2023/10/19 20:33:18 by ting             ###   ########.fr       */
+/*   Updated: 2023/10/21 20:26:43 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,21 @@ int	isnewline(char *str)
 		i++;
 	}
 	return (i + 1);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	int	i;
+	unsigned char *p;
+
+	i = 0;
+	p = (unsigned char *)s;
+	while (n > 0)
+	{
+		p[i] = '\0';
+		i++;
+		n--;
+	}
 }
 
 char	*ft_strdup(const char *src)
