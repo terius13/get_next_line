@@ -6,45 +6,59 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
-/*   Updated: 2023/10/23 20:13:13 by ting             ###   ########.fr       */
+/*   Updated: 2023/10/24 22:02:52 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
+/*
 char	removeline(char *wholebuff)
 {
 	
 }
-
-char	nextline(int fd, char *buffer, char *wholebuff)
-{
-	int	bytesread;
-
-	i = 0;
-	while (newlinepos = checkbuffer(wholebuffer == 0 ))
-	{
-		bytesread = read(fd, buffer, BUFFER_SIZE);
-
-	}	
-}
+*/
 
 int	checkbuffer(char *wholebuff)
 {
 	int	i;
 
 	i = 0;
-	while (wholebuff[i] != '\0')
+
+	while (wholebuff != NULL && wholebuff[i] != '\0')
 	{
 		if (wholebuff[i] == '\n')
 		{
+			i++;
 			return (i);
 		}
 		i++;
 	}
+
 	return (0);
 }
 
+char	*nextline(int fd, char *buffer, char *wholebuff)
+{
+	int	bytesread;
+	int	pos;
+	char	*line;//need to malloc line
+
+	line = "";
+	pos= 0;
+	if (!wholebuff)
+		wholebuff = ft_strdup("");
+	while ((pos = checkbuffer(wholebuff)) == 0)
+	{
+		bytesread = read(fd, buffer, BUFFER_SIZE);
+		buffer[bytesread] = '\0';
+		wholebuff = ft_strcat(wholebuff, buffer, BUFFER_SIZE);
+	}
+	if (pos > 0)
+	{
+		line = ft_strcat(line, wholebuff, pos);
+	}
+	return (line);
+}
 
 char 	*get_next_line(int fd)
 {
@@ -53,13 +67,14 @@ char 	*get_next_line(int fd)
 	char 	*line;
 	int	newlinepos;
 
+	line = "";
 	newlinepos = 0;
 	if (fd < 0 || BUFFER_SIZE <= 0 )
 		return (NULL);
-	line = (char *)malloc(checkbuffer(wholebuff));
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
+	wholebuff = (char *)malloc(BUFFER_SIZE + 1 + ft_strlen(wholebuff));
 	line = nextline(fd, buffer, wholebuff);
-	wholebuff = removeline(line);
+//	wholebuff = removeline(line);
 	return (line);
 
 	//read until there is a newline stop reading when it see a new line
@@ -163,7 +178,7 @@ char	*get_next_line(int fd)
 	return (ft_strdup(line));
 }
 */
-/*
+
 #include <stdio.h>
 #include <fcntl.h>
 int	main(void)
@@ -182,13 +197,15 @@ int	main(void)
 	line = get_next_line(fd);
 	printf("%s\n", line);
 	free(line);
+	/*
 	line = get_next_line(fd);
 	printf("%s\n", line);
 	free(line);
 	line = get_next_line(fd);
 	printf("%s\n", line);
+	*/
 	free(line);
 	close(fd);
 	return (0);
 }
-*/
+
