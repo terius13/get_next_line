@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
-/*   Updated: 2023/10/31 17:06:57 by ting             ###   ########.fr       */
+/*   Updated: 2023/11/02 00:01:14 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,41 @@ char	*removeline(char *wholebuff, char *line)
 char	*nextline(int fd, char *buffer, char **wholebuff)
 {
 	int	bytesread;
+	char	*temp;
+	int	pos;
+	char	*line;
+
+	line = "";
+	bytesread = 1;
+	pos = 0;
+	while (bytesread != '\0')
+	{
+		bytesread = read(fd, buffer, BUFFER_SIZE);
+		if (bytesread == -1)
+			return (0);
+		else if(bytesread == 0)
+			break;
+		buffer[bytesread] = '\0';
+		if (!*wholebuff)
+			*wholebuff = ft_strdup("");
+		temp = *wholebuff;
+		*wholebuff = ft_strcat(temp, buffer, BUFFER_SIZE);//Size might be wrong
+		free(temp);
+		temp = NULL;
+		if (checkbuffer(buffer) > 0)
+		{
+			break;
+		}
+	}
+	if ((pos = checkbuffer(*wholebuff)) > 0)
+		line = ft_strcat(line, *wholebuff, pos);
+	return (line);
+}
+
+/*
+char	*nextline(int fd, char *buffer, char **wholebuff)
+{
+	int	bytesread;
 	char	*line;
 	char	*temp;
 
@@ -97,7 +132,7 @@ char	*nextline(int fd, char *buffer, char **wholebuff)
 	}
 	return (line);
 }
-
+*/
 char 	*get_next_line(int fd)
 {
 	char	*buffer;
@@ -116,10 +151,12 @@ char 	*get_next_line(int fd)
 	{
 		free(wholebuff);
 		wholebuff = NULL;
+		free(buffer);
 		free(line);
 		return (NULL);
 	}
 	wholebuff = removeline(wholebuff, line);
+	free(buffer);
 	return (line);
 }
 
@@ -221,7 +258,7 @@ char	*get_next_line(int fd)
 	return (ft_strdup(line));
 }
 */
-/*
+
 #include <stdio.h>
 #include <fcntl.h>
 int	main(void)
@@ -251,4 +288,4 @@ int	main(void)
 	close(fd);
 	return (0);
 }
-*/
+
