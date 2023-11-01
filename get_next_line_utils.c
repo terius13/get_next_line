@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:19:28 by ting              #+#    #+#             */
-/*   Updated: 2023/10/24 21:55:27 by ting             ###   ########.fr       */
+/*   Updated: 2023/10/27 15:30:48 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ char	*ft_strcat(char *s1, char *s2, int size)
 
 	i = 0;
 	j = 0;
-//	if (!s1 || !s2)
-//		return (NULL);
+	if (!s1 || !s2)
+		return (NULL);
 	string = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (string == NULL)
 		return (NULL);
@@ -109,6 +109,7 @@ char	*ft_strdup(const char *src)
 	while (src[i] != '\0')
 		i++;
 	dest = (char *)malloc(sizeof(char) * i + 1);
+	ft_bzero(dest, i + 1);
 	if (dest == NULL)
 		return (NULL);
 	while (src[j] != '\0')

@@ -1,3 +1,2 @@
 hello
-blurry
-bye now
+bye
