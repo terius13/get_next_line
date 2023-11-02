@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
-/*   Updated: 2023/11/02 13:38:58 by ting             ###   ########.fr       */
+/*   Updated: 2023/11/02 18:11:59 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	checkbuffer(char *wholebuff)
 	int	length;
 
 	i = 0;
+	if (!wholebuff)
+		return (0);
 	length = ft_strlen(wholebuff);
 	while (wholebuff[i] != '\0')
 	{
@@ -59,10 +61,10 @@ char	*nextline(int fd, char *buffer, char **wholebuff)
 	line = "";
 	bytesread = 1;
 	pos = 0;
-	while (bytesread != '\0')
+	while (bytesread != 0)
 	{
 		bytesread = read(fd, buffer, BUFFER_SIZE);
-		if (bytesread == -1)
+		if (bytesread < 0)
 			return (0);
 		else if(bytesread == 0)
 			break;
@@ -70,7 +72,7 @@ char	*nextline(int fd, char *buffer, char **wholebuff)
 		if (!*wholebuff)
 			*wholebuff = ft_strdup("");
 		temp = *wholebuff;
-		*wholebuff = ft_strcat(temp, buffer, BUFFER_SIZE);//Size might be wrong
+		*wholebuff = ft_strcat(temp, buffer, ft_strlen(buffer));//Size might be wrong
 		free(temp);
 		temp = NULL;
 		if (checkbuffer(buffer) > 0)
@@ -136,11 +138,10 @@ char 	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 )
 		return (NULL);
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
-	ft_bzero(buffer, BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
+	ft_bzero(buffer, BUFFER_SIZE + 1);
 	line = nextline(fd, buffer, &wholebuff);
-	// if (!*wholebuff)
 	if (!line || !*line)
 	{
 		free(wholebuff);
@@ -250,15 +251,15 @@ char	*get_next_line(int fd)
 	}
 	return (ft_strdup(line));
 }
-*/
 
+*/
 #include <stdio.h>
 #include <fcntl.h>
 int	main(void)
 {
 	char	*line;
 //	int	i = 0;
-	int fd = open("test.txt", O_RDONLY);
+	int fd = open("tests/1char.txt", O_RDONLY);
 	
 //	while ((line = get_next_line(fd)) != NULL && i < 3)
 //	{
