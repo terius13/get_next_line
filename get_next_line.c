@@ -6,17 +6,11 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
-/*   Updated: 2023/11/02 00:01:14 by ting             ###   ########.fr       */
+/*   Updated: 2023/11/02 13:38:58 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-void	freebuff(char *str)
-{
-	free(str);
-	str = NULL;
-}
 
 int	checkbuffer(char *wholebuff)
 {
@@ -152,7 +146,6 @@ char 	*get_next_line(int fd)
 		free(wholebuff);
 		wholebuff = NULL;
 		free(buffer);
-		free(line);
 		return (NULL);
 	}
 	wholebuff = removeline(wholebuff, line);
