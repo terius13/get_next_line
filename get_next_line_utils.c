@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:19:28 by ting              #+#    #+#             */
-/*   Updated: 2023/10/27 15:30:48 by ting             ###   ########.fr       */
+/*   Updated: 2023/11/03 20:25:38 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,6 @@ char	*ft_strcat(char *s1, char *s2, int size)
 	return (string);
 }
 
-int	isnewline(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\n' && str[i] != '\0')
-	{
-		i++;
-	}
-	return (i + 1);
-}
-
 void	ft_bzero(void *s, size_t n)
 {
 	int	i;
@@ -96,6 +84,26 @@ void	ft_bzero(void *s, size_t n)
 		i++;
 		n--;
 	}
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	char	*string;
+	char	cc;
+	int	i;
+
+	i = 0;
+	string = (char *)s;
+	cc = (char) c;
+	if (!string)
+		return (NULL);
+	while (string[i] != cc)
+	{
+		if (string[i] == '\0')
+		       return (NULL);
+		i++;	
+	}
+	return (&string[i]);
 }
 
 char	*ft_strdup(const char *src)
@@ -127,6 +135,7 @@ int	main(void)
 	char	s1[] = "helloworld";
 //	char	s2[] = "byenow\nhihi";
 
+	printf("%s", ft_strchr(s1, 'w'));
 //	printf("%d", isnewline(s2));
 //	printf("%s", ft_strcat(s1, s2));
 //	printf("%d", ft_strlen(s1));

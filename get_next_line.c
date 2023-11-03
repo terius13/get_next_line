@@ -6,12 +6,119 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
-/*   Updated: 2023/11/03 12:14:14 by ting             ###   ########.fr       */
+/*   Updated: 2023/11/03 21:28:40 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+char	*get_buffer(int *bytesread, int fd, char *wholebuff)
+{
+	char	*ptr;
+	char	*temp;
+/*
+//	buffer = (char *)malloc(BUFFER_SIZE + 1);
+//	if (!buffer)
+//		return (NULL);
+//	ft_bzero(buffer, BUFFER_SIZE + 1);
+	if (!wholebuff)
+		wholebuff = "";
+	temp = wholebuff;
+	buffer = (char *)malloc(BUFFER_SIZE + 1);
+	*bytesread = read(fd, buffer, BUFFER_SIZE);
+	buffer[bytesread] = '\0';
+	wholebuff = ft_strcat(wholebuff, buffer, ft_strlen(buffer));
+//	free(buffer);
+*/
+	if (!wholebuff)
+		wholebuff = (char *)malloc(BUFFER_SIZE + 1);
+	ptr = wholebuff;
+	temp = (char *)malloc(BUFFER_SIZE + 1);
+	*bytesread = read(fd, temp, BUFFER_SIZE);
+	wholebuff = ft_strcat(wholebuff, temp, ft_strlen(temp));
+	free(temp);
+	free(ptr);
+	if (*bytesread < 0 || (!*bytesread && !*wholebuff))
+	{
+//		free(wholebuff);
+		wholebuff = NULL;
+	}
+	return (wholebuff);
+}
+
+char	*next_line(char *wholebuff)
+{
+	char	*line;
+	int	len;
+	int	i;
+
+	i = 0;
+	len = 0;
+	while (wholebuff[len] != '\n')
+		len++;
+	len++;
+	line = (char *)malloc(len);
+	ft_bzero(line, len);
+	if (!line)
+		return (NULL);
+	while (len > 0)
+	{
+		line[i] = wholebuff[i];
+		i++;
+		len--;
+	}
+	return (line);
+}
+
+char	*removeline(char *wholebuff)
+{
+	char	*temp;
+	int	len;
+
+	len = 0;
+	while (wholebuff[len] != '\n')
+		len++;
+	len++;
+	temp = (char *)malloc(len);
+	if (!temp)
+		return (NULL);
+	temp = ft_strchr(wholebuff, '\n');
+	wholebuff = ft_strdup(temp + 1);
+//	free(temp);
+	return (wholebuff);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*wholebuff;
+	char	*line;
+	int	bytesread;
+
+	line = "";
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+
+	while (ft_strchr(wholebuff, '\n') == NULL)
+	{
+		wholebuff = get_buffer(&bytesread, fd, wholebuff);
+		if (!wholebuff)
+			break;
+	}
+	if (ft_strchr(wholebuff, '\n') != NULL)
+	{
+		line = next_line(wholebuff);
+		wholebuff = removeline(wholebuff);
+		return (line);
+	}
+	if (!wholebuff)
+		return (NULL);
+	line = ft_strdup(wholebuff);
+//	free(wholebuff);
+	wholebuff = NULL;
+	return (line);
+}
+
+/*
 int	checkbuffer(char *wholebuff)
 {
 	int	i;
@@ -27,21 +134,6 @@ int	checkbuffer(char *wholebuff)
 	}
 	if (wholebuff[i] == '\n')
 		i++;
-
-	/*
-	if (!wholebuff)
-		return (0);
-	length = ft_strlen(wholebuff);
-	while (wholebuff[i] != '\0')
-	{
-		if (wholebuff[i] == '\n' || i >= length)
-		{
-			i++;
-			return (i);
-		}
-		i++;
-	}
-	*/
 	return (i);
 }
 
@@ -67,7 +159,8 @@ char	*getbuffer(int fd, char *wholebuff)
 		if (bytesread == 0)
 			break;
 		buffer[bytesread] = '\0';
-		wholebuff = "";
+		if (!wholebuff)
+			wholebuff = '\0';
 		wholebuff = ft_strcat(wholebuff, buffer, ft_strlen(buffer));
 		if (checkbuffer(buffer) > 0)
 			break;
@@ -119,10 +212,8 @@ char	*get_next_line(int fd)
 	wholebuff = removeline(wholebuff, line);
 	return (line);
 }
-
+*/
 /*
-
-
 char	*nextline(int fd, char *buffer, char **wholebuff)
 {
 	int	bytesread;
