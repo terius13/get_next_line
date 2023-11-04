@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
-/*   Updated: 2023/11/04 12:34:10 by ting             ###   ########.fr       */
+/*   Updated: 2023/11/04 19:09:01 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,31 @@
 
 char	*get_buffer(int *bytesread, int fd, char *wholebuff)
 {
-	char	*ptr;
-	char	*temp;
-/*
-//	buffer = (char *)malloc(BUFFER_SIZE + 1);
-//	if (!buffer)
-//		return (NULL);
-//	ft_bzero(buffer, BUFFER_SIZE + 1);
+	//char	*ptr;
+//	char	*temp;
+	char	*buffer;
+
+//	temp = (char *)malloc(BUFFER_SIZE + 1);
+	buffer = (char *)malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	ft_bzero(buffer, BUFFER_SIZE + 1);
 	if (!wholebuff)
 		wholebuff = "";
-	temp = wholebuff;
-	buffer = (char *)malloc(BUFFER_SIZE + 1);
+//	temp = wholebuff;
+//	buffer = (char *)malloc(BUFFER_SIZE + 1);
 	*bytesread = read(fd, buffer, BUFFER_SIZE);
-	buffer[bytesread] = '\0';
+	buffer[*bytesread] = '\0';
 	wholebuff = ft_strcat(wholebuff, buffer, ft_strlen(buffer));
-//	free(buffer);
-*/
+	free(buffer);
+
+	/*
 	if (!wholebuff)
 	{
 		wholebuff = (char *)malloc(BUFFER_SIZE + 1);
 		ft_bzero(wholebuff, BUFFER_SIZE +1);
 	}
+	
 	ptr = wholebuff;
 	temp = (char *)malloc(BUFFER_SIZE + 1);
 	*bytesread = read(fd, temp, BUFFER_SIZE);
@@ -45,7 +49,8 @@ char	*get_buffer(int *bytesread, int fd, char *wholebuff)
 	wholebuff = ft_strcat(wholebuff, temp, ft_strlen(temp) + 1);
 	free(temp);
 	free(ptr);
-	if (*bytesread < 0 || (!*bytesread && !*wholebuff))
+	*/
+	if (*bytesread <= 0 || (!*bytesread && !*wholebuff))
 	{
 		free(wholebuff);
 		wholebuff = NULL;
@@ -86,14 +91,16 @@ char	*removeline(char *wholebuff)
 	while (wholebuff[len] != '\n')
 		len++;
 	len++;
-	/*
+//temp will be nulll because len will be 0
+/*	
 	temp = (char *)malloc(len);
 	if (!temp)
 		return (NULL);
 		*/
 	temp = ft_strchr(wholebuff, '\n');
 	wholebuff = ft_strdup(temp + 1);
-//	free(temp);
+	free(temp);
+
 	return (wholebuff);
 }
 
@@ -283,7 +290,7 @@ char 	*get_next_line(int fd)
 	return (line);
 }
 */
-
+/*
 #include <stdio.h>
 #include <fcntl.h>
 int     main(void)
@@ -311,7 +318,7 @@ int     main(void)
         close(fd);
         return (0);
 }
-
+*/
 /*
 #include <stdio.h>
 #include <fcntl.h>
