@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
-/*   Updated: 2023/11/04 19:09:01 by ting             ###   ########.fr       */
+/*   Updated: 2023/11/04 20:12:08 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*get_buffer(int *bytesread, int fd, char *wholebuff)
 	free(temp);
 	free(ptr);
 	*/
-	if (*bytesread <= 0 || (!*bytesread && !*wholebuff))
+	if (*bytesread < 0 || (!*bytesread && !*wholebuff))
 	{
 		free(wholebuff);
 		wholebuff = NULL;
@@ -86,6 +86,7 @@ char	*removeline(char *wholebuff)
 {
 	char	*temp;
 	int	len;
+	char	*ptr;
 
 	len = 0;
 	while (wholebuff[len] != '\n')
@@ -98,8 +99,11 @@ char	*removeline(char *wholebuff)
 		return (NULL);
 		*/
 	temp = ft_strchr(wholebuff, '\n');
+	ptr = wholebuff;
 	wholebuff = ft_strdup(temp + 1);
-	free(temp);
+	free(ptr);
+	//check if ptr is freeing properly, last edit
+//	free(temp);
 
 	return (wholebuff);
 }
@@ -290,7 +294,7 @@ char 	*get_next_line(int fd)
 	return (line);
 }
 */
-/*
+
 #include <stdio.h>
 #include <fcntl.h>
 int     main(void)
@@ -318,7 +322,7 @@ int     main(void)
         close(fd);
         return (0);
 }
-*/
+
 /*
 #include <stdio.h>
 #include <fcntl.h>
