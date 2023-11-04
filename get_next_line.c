@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
-/*   Updated: 2023/11/03 21:28:40 by ting             ###   ########.fr       */
+/*   Updated: 2023/11/04 12:34:10 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,23 @@ char	*get_buffer(int *bytesread, int fd, char *wholebuff)
 //	free(buffer);
 */
 	if (!wholebuff)
+	{
 		wholebuff = (char *)malloc(BUFFER_SIZE + 1);
+		ft_bzero(wholebuff, BUFFER_SIZE +1);
+	}
 	ptr = wholebuff;
 	temp = (char *)malloc(BUFFER_SIZE + 1);
 	*bytesread = read(fd, temp, BUFFER_SIZE);
-	wholebuff = ft_strcat(wholebuff, temp, ft_strlen(temp));
+	if (*bytesread == 0)
+	{
+		return (NULL);
+	}
+	wholebuff = ft_strcat(wholebuff, temp, ft_strlen(temp) + 1);
 	free(temp);
 	free(ptr);
 	if (*bytesread < 0 || (!*bytesread && !*wholebuff))
 	{
-//		free(wholebuff);
+		free(wholebuff);
 		wholebuff = NULL;
 	}
 	return (wholebuff);
@@ -79,9 +86,11 @@ char	*removeline(char *wholebuff)
 	while (wholebuff[len] != '\n')
 		len++;
 	len++;
+	/*
 	temp = (char *)malloc(len);
 	if (!temp)
 		return (NULL);
+		*/
 	temp = ft_strchr(wholebuff, '\n');
 	wholebuff = ft_strdup(temp + 1);
 //	free(temp);
@@ -94,11 +103,12 @@ char	*get_next_line(int fd)
 	char	*line;
 	int	bytesread;
 
-	line = "";
+	line = NULL;
+	bytesread = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 
-	while (ft_strchr(wholebuff, '\n') == NULL)
+	while (ft_strchr(wholebuff, '\n') == NULL && bytesread)
 	{
 		wholebuff = get_buffer(&bytesread, fd, wholebuff);
 		if (!wholebuff)
@@ -113,7 +123,7 @@ char	*get_next_line(int fd)
 	if (!wholebuff)
 		return (NULL);
 	line = ft_strdup(wholebuff);
-//	free(wholebuff);
+	free(wholebuff);
 	wholebuff = NULL;
 	return (line);
 }
@@ -296,10 +306,8 @@ int     main(void)
         printf("%s", line);
         free(line);
         line = get_next_line(fd);
-
         printf("%s", line);
         free(line);
-
         close(fd);
         return (0);
 }
