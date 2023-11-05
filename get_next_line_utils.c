@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:19:28 by ting              #+#    #+#             */
-/*   Updated: 2023/11/03 20:25:38 by ting             ###   ########.fr       */
+/*   Updated: 2023/11/05 18:57:34 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,11 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_substr(char *str, int start, int len)
-{
-	char	*dest;
-	int	i;
-
-	i = 0;
-	if (start >= ft_strlen(str))
-		return (NULL);
-	if (len > ft_strlen(str) - start)
-		len = ft_strlen(str) - start;
-	dest = (char *)malloc(len + 1);
-	if (str == NULL || dest == NULL)
-		return (NULL);
-	while (len > 0)
-	{
-		dest[i++] = str[start++];
-		len--;
-	}
-	return (dest);
-}
-
 char	*ft_strcat(char *s1, char *s2, int size)
 {
 	char	*string;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -73,8 +52,8 @@ char	*ft_strcat(char *s1, char *s2, int size)
 
 void	ft_bzero(void *s, size_t n)
 {
-	int	i;
-	unsigned char *p;
+	int				i;
+	unsigned char	*p;
 
 	i = 0;
 	p = (unsigned char *)s;
@@ -90,7 +69,7 @@ char	*ft_strchr(const char *s, int c)
 {
 	char	*string;
 	char	cc;
-	int	i;
+	int		i;
 
 	i = 0;
 	string = (char *)s;
@@ -100,8 +79,8 @@ char	*ft_strchr(const char *s, int c)
 	while (string[i] != cc)
 	{
 		if (string[i] == '\0')
-		       return (NULL);
-		i++;	
+			return (NULL);
+		i++;
 	}
 	return (&string[i]);
 }
@@ -109,8 +88,8 @@ char	*ft_strchr(const char *s, int c)
 char	*ft_strdup(const char *src)
 {
 	char	*dest;
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;

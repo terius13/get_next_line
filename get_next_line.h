@@ -6,7 +6,7 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:20:08 by ting              #+#    #+#             */
-/*   Updated: 2023/11/03 19:16:55 by ting             ###   ########.fr       */
+/*   Updated: 2023/11/05 18:56:51 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <unistd.h>
 
 char	*get_next_line(int fd);
-int	ft_strlen(char *str);
+int		ft_strlen(char *str);
 char	*ft_strcat(char *s1, char *s2, int size);
 char	*ft_strdup(const char *src);
 void	ft_bzero(void *s, size_t n);
