@@ -6,13 +6,13 @@
 /*   By: ting <ting@student.42singapore.sg>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:18:22 by ting              #+#    #+#             */
-/*   Updated: 2023/11/05 18:54:49 by ting             ###   ########.fr       */
+/*   Updated: 2023/11/08 18:11:40 by ting             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_buffer(int *bytesread, int fd, char *wholebuff)
+static char	*get_buffer(int *bytesread, int fd, char *wholebuff)
 {
 	char	*buffer;
 	char	*temp;
@@ -39,7 +39,7 @@ char	*get_buffer(int *bytesread, int fd, char *wholebuff)
 	return (wholebuff);
 }
 
-char	*next_line(char *wholebuff)
+static char	*next_line(char *wholebuff)
 {
 	char	*line;
 	int		len;
@@ -59,7 +59,7 @@ char	*next_line(char *wholebuff)
 	return (line);
 }
 
-char	*removeline(char *wholebuff)
+static char	*removeline(char *wholebuff)
 {
 	int		len;
 	char	*ptr;
