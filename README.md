@@ -1,4 +1,4 @@
-GET_NEXT_LINE 42 Project
+# GET_NEXT_LINE
 
 This project is about programming a function that returns a line read from the file descriptor.
 It teaches a new concept called static variables!
